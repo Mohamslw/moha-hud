@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HUD</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+            font-family: Arial, sans-serif;
+            background-color: transparent;
+        }
+        .hud {
+            position: absolute;
+            top: 50px;
+            right: 10px;
+            display: flex;
+            flex-direction: column;
+            gap: 2px;
+            align-items: flex-end;
+        }
+        .info-box {
+            color: white;
+            padding: 10px;
+            border-radius: 5px;
+            min-width: 200px;
+            text-align: left;
+            background: linear-gradient(to right, rgba(0,0,0,0.5) 0%, rgba(0,0,0,0) 100%);
+        }
+        .info-box-job {
+            min-width: 192px;
+            width: 192px;
+            font-size: 1em;
+            display: flex;
+            align-items: center;
+            justify-content: flex-start;
+        }
+        .info-box-faction {
+            min-width: 192px;
+            width: 192px;
+            font-size: 1em;
+            display: flex;
+            align-items: center;
+            justify-content: flex-start;
+        }
+        .info-box-id {
+            min-width: 50px;
+            width: 50px;
+            font-size: 0.75em;
+            padding: 5px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <div class="hud">
+        <div id="job" class="info-box info-box-job">⚒️ Unknown</div>
+        <div id="faction" class="info-box info-box-faction">🏴 Unknown</div>
+        <div id="id" class="info-box info-box-id">🆔 0</div>
+    </div>
+    <script>
+        window.addEventListener('message', function(event) {
+            if (event.data.action === 'updateHUD') {
+                document.getElementById('job').textContent = '⚒️ ' + event.data.job + ' - ' + event.data.jobGrade;
+                document.getElementById('faction').textContent = '🏴 ' + event.data.faction + ' - ' + event.data.factionGrade;
+                document.getElementById('id').textContent = '🆔 ' + event.data.id;
+            }
+        });
+    </script>
+</body>
+</html>
